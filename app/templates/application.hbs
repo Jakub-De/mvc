@@ -1,0 +1,28 @@
+<div class="app">
+  <h1>Lista To-Do</h1>
+
+  <form {{on "submit" this.addTodo}}>
+    <input
+      class="input"
+      type="text"
+      value={{this.newTodoTitle}}
+      {{on "input" this.updateNewTodoTitle}}
+      placeholder="Wpisz treść zadania"
+    />
+    <button type="submit">Dodaj</button>
+  </form>
+
+  <ul>
+    {{#each this.todos as |todo|}}
+      <li>
+        <input
+          type="checkbox"
+          checked={{todo.isCompleted}}
+          {{on "change" (fn this.toggleCompletion todo)}}
+        />
+        <p class={{if todo.isCompleted "completed"}}>{{todo.title}}</p>
+        <button {{on "click" (fn this.removeTodo todo)}}>X</button>
+      </li>
+    {{/each}}
+  </ul>
+</div>
